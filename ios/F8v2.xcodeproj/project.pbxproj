@@ -199,6 +199,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				789BB91E5A251077BA8A4EE8 /* 📦 Embed Pods Frameworks */,
 				F391BEA07F3C4EAAEE2D8F23 /* 📦 Copy Pods Resources */,
+				E4418A0AC0E1CDE71D77E727 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -332,6 +333,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E4418A0AC0E1CDE71D77E727 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-F8v2/Pods-F8v2-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F391BEA07F3C4EAAEE2D8F23 /* 📦 Copy Pods Resources */ = {

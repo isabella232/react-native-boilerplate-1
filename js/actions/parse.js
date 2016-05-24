@@ -49,16 +49,16 @@ function loadParseQuery(type: string, query: Parse.Query): ThunkAction {
 }
 
 module.exports = {
-  loadSessions: (): ThunkAction =>
-    loadParseQuery(
-      'LOADED_SESSIONS',
-      new Parse.Query('Agenda')
-        .include('speakers')
-        .ascending('startTime')
-    ),
+  // loadSessions: (): ThunkAction =>
+  //   loadParseQuery(
+  //     'LOADED_SESSIONS',
+  //     new Parse.Query('Agenda')
+  //       .include('speakers')
+  //       .ascending('startTime')
+  //   ),
 
-  loadMaps: (): ThunkAction =>
-    loadParseQuery('LOADED_MAPS', new Parse.Query(Maps)),
+  // loadMaps: (): ThunkAction =>
+  //   loadParseQuery('LOADED_MAPS', new Parse.Query(Maps)),
 
   loadNotifications: (): ThunkAction =>
     loadParseQuery('LOADED_NOTIFICATIONS', new Parse.Query(Notification)),
