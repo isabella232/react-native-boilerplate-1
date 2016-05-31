@@ -21,75 +21,83 @@
  *
  * @flow
  */
+
 'use strict';
 
 var F8Colors = require('F8Colors');
 var React = require('React');
-var StyleSheet = require('StyleSheet');
-var { Text } = require('F8Text');
-var TouchableOpacity = require('TouchableOpacity');
 var View = require('View');
+var { Text } = require('F8Text');
+var F8Touchable = require('F8Touchable');
 var Image = require('Image');
+var StyleSheet = require('StyleSheet');
 
-type Props = {
-  numberOfSessions: number;
-  onPress: () => void;
-};
 
-function RateSessionsCell({numberOfSessions, onPress}: Props) {
-  const pluralSuffix = numberOfSessions === 1 ? '' : 's';
-  return (
-    <View style={styles.cell}>
-      <Image
-        style={styles.star}
-        source={require('../../rating/img/full-star.png')}
-      />
-      <Text style={styles.text}>
-        You have {numberOfSessions} session{pluralSuffix} to review
-      </Text>
+class MenuItem extends React.Component {
+  props: {
+    icon: number;
+    selectedIcon: number;
+    selected: boolean;
+    title: string;
+    badge: ?string;
+    onPress: () => void;
+  };
 
-      <TouchableOpacity accessibilityTraits="button" onPress={onPress}>
-        <View style={styles.button}>
-          <Text style={styles.caption}>
-            REVIEW
+  render() {
+    var icon = this.props.selected ? this.props.selectedIcon : this.props.icon;
+    var selectedTitleStyle = this.props.selected && styles.selectedTitle;
+    var badge;
+    if (this.props.badge) {
+      badge = (
+        <View style={styles.badge}>
+          <Text style={styles.badgeText}>
+            {this.props.badge}
           </Text>
         </View>
-      </TouchableOpacity>
-    </View>
-  );
+      );
+    }
+    return (
+      <F8Touchable onPress={this.props.onPress}>
+        <View style={styles.container}>
+          <Image style={styles.icon} source={icon} />
+          <Text style={[styles.title, selectedTitleStyle]}>
+            {this.props.title}
+          </Text>
+          {badge}
+        </View>
+      </F8Touchable>
+    );
+  }
 }
 
 var styles = StyleSheet.create({
-  cell: {
+  container: {
     flexDirection: 'row',
+    height: 50,
     alignItems: 'center',
-    padding: 15,
-    backgroundColor: 'white',
-  },
-  star: {
-    width: 20,
-    height: 20,
-    marginRight: 8,
-    marginBottom: 2,
-  },
-  text: {
-    fontSize: 15,
-    color: F8Colors.darkText,
-    flex: 1,
-  },
-  button: {
-    backgroundColor: '#6F86D9',
-    height: 30,
     paddingHorizontal: 20,
-    borderRadius: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  caption: {
-    color: 'white',
-    letterSpacing: 1,
+  icon: {
+    marginRight: 20,
+  },
+  title: {
+    flex: 1,
+    fontSize: 17,
+    color: F8Colors.lightText,
+  },
+  selectedTitle: {
+    color: F8Colors.darkText,
+  },
+  badge: {
+    backgroundColor: '#DC3883',
+    paddingHorizontal: 10,
+    paddingVertical: 2,
+    borderRadius: 10,
+  },
+  badgeText: {
     fontSize: 12,
+    color: 'white',
   },
 });
 
-module.exports = RateSessionsCell;
+module.exports = MenuItem;

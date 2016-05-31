@@ -24,8 +24,7 @@
 
 'use strict';
 
-var F8App = require('F8App');
-var FacebookSDK = require('FacebookSDK');
+var App = require('App');
 var Parse = require('parse/react-native');
 var React = require('React');
 var Relay = require('react-relay');
@@ -40,8 +39,6 @@ function setup(): React.Component {
     Parse.initialize('oss-f8-app-2016');
     Parse.serverURL = `${serverURL}/parse`;
 
-    FacebookSDK.init();
-    Parse.FacebookUtils.init();
     Relay.injectNetworkLayer(
         new Relay.DefaultNetworkLayer(`${serverURL}/graphql`, {
             fetchTimeout: 30000,
@@ -63,7 +60,7 @@ function setup(): React.Component {
             }
             return (
                 <Provider store={this.state.store}>
-                    <F8App />
+                    <App />
                 </Provider>
             );
         }

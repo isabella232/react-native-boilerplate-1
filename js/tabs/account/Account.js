@@ -23,24 +23,25 @@
  */
 'use strict';
 
-import React, {Component, Image} from 'react-native';
-import {Container, Header, Title, Button, Icon, Content, Text, Thumbnail, View} from 'native-base';
+import React, {Component} from 'react-native';
+import {Container, Header, Title, Button, Icon, Content, Text, View} from 'native-base';
 import {connect} from 'react-redux';
 var Navigator = require('Navigator');
-var {dispatchAccount} = require('../../actions/account');
 var ListContainer = require('ListContainer');
-var Account = require('../account/Account');
 
 
 type Props = {
     navigator: Navigator;
+    logOut: () => void;
 };
 
-class Home extends React.Component {
+class Account extends React.Component {
     props: Props;
 
     constructor(props: Props) {
         super(props);
+
+        this.openHome = this.openHome.bind(this);
     }
 
     render() {
@@ -48,30 +49,25 @@ class Home extends React.Component {
         return (
             <View>
                 <ListContainer
-                    title="Home"
+                    title="Account"
                     backgroundImage={require('./img/notifications-background.png')}
                     backgroundColor={'#E78196'} />
 
+
                 <Container>
                     <Content style={{backgroundColor: '#fff'}} padder>
-                        <Text>Hey.....</Text>
+                        <Text>My Account</Text>
                         <Text></Text>
-                        <Button onPress={() => this.props.goToAccount()}>
-                            next
-                        </Button>
                     </Content>
                 </Container>
             </View>
         );
+    }
+
+    openHome() {
+        this.props.navigator.push({home: 1});
     }  
 }
 
-function bindActions(dispatch) {
-    return {
-        goToAccount: ()=>dispatch(dispatchAccount('account'))
-    };
-}
 
-
-
-module.exports = connect(null, bindActions)(Home);
+module.exports = (Account);

@@ -21,50 +21,39 @@
  *
  * @flow
  */
+
 'use strict';
 
-var PixelRatio = require('PixelRatio');
-var React = require('React');
-var StyleSheet = require('StyleSheet');
-var View = require('View');
+jest.autoMockOff();
 
-class ItemsWithSeparator extends React.Component {
-  props: {
-    style: any;
-    separatorStyle: any;
-    children: any;
-  };
+const Parse = require('parse');
+const maps = require('../maps');
 
-  render() {
-    var children = [];
-    var length = React.Children.count(this.props.children);
-    React.Children.forEach(
-      this.props.children,
-      (child, ii) => {
-        children.push(child);
-        if (ii !== length - 1) {
-          children.push(
-            <View
-              key={'separator-' + ii}
-              style={[styles.separator, this.props.separatorStyle]}
-            />
-          );
-        }
-      }
-    );
-    return (
-      <View style={this.props.style}>
-        {children}
-      </View>
-    );
-  }
-}
+describe('maps reducer', () => {
 
-var styles = StyleSheet.create({
-  separator: {
-    backgroundColor: '#0322500A',
-    height: 1 / PixelRatio.get(),
-  },
+  it('is empty by default', () => {
+    expect(maps(undefined, {})).toEqual([]);
+  });
+
+  it('populates maps from server', () => {
+    let list = [
+      new Parse.Object({
+        name: 'Day 1',
+        x1: new Parse.File('x1.png'),
+        x2: new Parse.File('x2.png'),
+        x3: new Parse.File('x3.png'),
+      }),
+    ];
+
+    expect(
+      maps([], {type: 'LOADED_MAPS', list})
+    ).toEqual([{
+      id: jasmine.any(String),
+      name: 'Day 1',
+      x1url: 'x1.png',
+      x2url: 'x2.png',
+      x3url: 'x3.png',
+    }]);
+  });
+
 });
-
-module.exports = ItemsWithSeparator;

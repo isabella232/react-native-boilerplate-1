@@ -21,50 +21,21 @@
  *
  * @flow
  */
+
 'use strict';
 
-const React = require('react-native');
-const ViewPager = require('./ViewPager');
-const StyleSheet = require('F8StyleSheet');
+const Parse = require('parse/react-native');
+const InteractionManager = require('InteractionManager');
 
-type Props = {
-  count: number;
-  selectedIndex: number;
-  onSelectedIndexChange?: (index: number) => void;
-  renderCard: (index: number) => ReactElement;
-  style?: any;
-};
+import type { Action } from './types';
 
-class Carousel extends React.Component {
-  props: Props;
-
-  render() {
-    let cards = [];
-    const {count, selectedIndex, renderCard} = this.props;
-
-    for (let i = 0; i < count; i++) {
-      let content = null;
-      if (Math.abs(i - selectedIndex) < 2) {
-        content = renderCard(i);
-      }
-      cards.push(content);
-    }
-    return (
-      <ViewPager style={styles.carousel} {...this.props} bounces={true}>
-        {cards}
-      </ViewPager>
-    );
-  }
+async function loadConfig(): Promise<Action> {
+  const config = await Parse.Config.get();
+  await InteractionManager.runAfterInteractions();
+  return {
+    type: 'LOADED_CONFIG',
+    config,
+  };
 }
 
-var styles = StyleSheet.create({
-  carousel: {
-    ios: {
-      margin: 10,
-      overflow: 'visible',
-      backgroundColor: 'black',
-    },
-  }
-});
-
-module.exports = Carousel;
+module.exports = {loadConfig};

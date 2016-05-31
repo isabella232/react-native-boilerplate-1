@@ -24,7 +24,6 @@
 'use strict';
 
 var F8Colors = require('F8Colors');
-var F8SessionCell = require('F8SessionCell');
 var React = require('React');
 var StyleSheet = require('StyleSheet');
 var findSessionByURI = require('findSessionByURI');
@@ -38,15 +37,7 @@ var { connect } = require('react-redux');
 class NotificationCell extends React.Component {
   render() {
     var attachment;
-    if (this.props.session) {
-      attachment = (
-        <F8SessionCell
-          style={styles.session}
-          session={this.props.session}
-          showStartEndTime={true}
-        />
-      );
-    } else if (this.props.notification.url) {
+    if (this.props.notification.url) {
       attachment = <Text style={styles.url}>{this.props.notification.url}</Text>;
     }
     return (
@@ -113,7 +104,7 @@ var styles = StyleSheet.create({
 
 function select(store, props) {
   return {
-    session: findSessionByURI(store.sessions, props.notification.url),
+    // session: findSessionByURI(store.sessions, props.notification.url),
     isSeen: store.notifications.seen[props.notification.id],
   };
 }

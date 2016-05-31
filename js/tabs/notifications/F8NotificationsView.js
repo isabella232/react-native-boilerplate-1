@@ -24,7 +24,7 @@
  */
 'use strict';
 
-var EmptySchedule = require('../schedule/EmptySchedule');
+var { Text } = require('F8Text');
 var Linking = require('Linking');
 var PushNUXModal = require('./PushNUXModal');
 var PureListView = require('../../common/PureListView');
@@ -120,10 +120,7 @@ class F8NotificationsView extends React.Component {
 
   renderEmptyList() {
     return (
-      <EmptySchedule
-        title="No Notifications Yet"
-        text="Important updates and announcements will appear here"
-      />
+      <Text>No Notifications Yet</Text>
     );
   }
 
