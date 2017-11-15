@@ -1,5 +1,7 @@
 # React Native Boilerplate
 
+### This Repo is deprecated
+
 This repo is a boilerplate for your next React Native project. It is based on the source code of the official [F8](https://fbf8.com/) app of 2016.
 
 ## Redux + CodePush included
